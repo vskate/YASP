@@ -2,6 +2,7 @@
 
 YASP is a clean and minimal start page, written entirely in HTML and SCSS, with color themes changed easily through a separate file.
 
+![yasp image](YASP.png)
 ## Color Themes
 
 YASP Comes with support for Catppuccin Mocha, although its easily modifiable through adding a new theme.scss file
