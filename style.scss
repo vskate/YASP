@@ -1,0 +1,35 @@
+@import 'themes/catppuccin-macchiato/theme.scss';
+
+@font-face {
+    font-family: 'UbuntuMono'; // Name used to reference the font
+    src: url('../fonts/UbuntuMonoNerdFont-Regular.ttf') format('truetype'); // Fallback for older systems
+    font-weight: normal; // Use 'bold' for bold fonts
+    font-style: normal; // Use 'italic' if the font is italic
+}
+
+body {
+    font-family: 'UbuntuMono', monospace;
+
+    background-color: $background;
+    color: $text;
+
+    display: flex;
+    flex-direction: row;
+
+    #main {
+        width: 60%;
+        height: 30%;
+
+        border: 1px solid $border;
+    }
+}
+
+ul * {
+    list-style-type: none;
+
+    color: $links;
+
+    a {
+        text-decoration: none;
+    }
+}
