@@ -3,3 +3,18 @@ $secondary: #181926;
 $text: #cad3f5;
 $border: #b7bdf8;
 $links: #8aadf4;
+$font: "UbuntuMono";
+$sideBannerPicture: "lucy_cyberpunk.png";
+$centerVertically: false;
+$iconSpacing: '  ';
+
+#side-banner {
+    height: 560px;
+}
+
+@font-face {
+    font-family: 'UbuntuMono';
+    src: url('/fonts/UbuntuMonoNerdFont-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

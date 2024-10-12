@@ -1,47 +1,49 @@
-@import 'themes/catppuccin-macchiato/theme.scss';
+@import 'themes/fluent/theme.scss';
 
-@font-face {
-    font-family: 'UbuntuMono'; // Name used to reference the font
-    src: url('../fonts/UbuntuMonoNerdFont-Regular.ttf') format('truetype'); // Fallback for older systems
-    font-weight: normal; // Use 'bold' for bold fonts
-    font-style: normal; // Use 'italic' if the font is italic
+html, body {
+    height: 100%;
 }
 
 body {
-    font-family: 'UbuntuMono', monospace;
+    font-family: $font, monospace;
 
     background-color: $background;
     color: $text;
 
     display: flex;
+    justify-content: center;
+
+    @if $centerVertically {
+        align-items: center;
+    } @else {
+        align-items: flex-start;
+    }
 
     overflow: hidden;
-    justify-content: center;
-    align-items: center;
 
-    .main {
+    > main {
         display: flex;
         flex-direction: row;
-        width: 50%;
-        height: 30%;
-        //margin: auto;
+        width: max(50%, 950px);
 
         background-color: $secondary;
 
         border: 1px solid $border;
-    }
 
-    .image * {
-        width: 400px;
+        > #side-banner {
+            flex: 0 0 400px;
+            background-image: url($sideBannerPicture);
+            background-size: cover;
+            background-position: bottom;
+        }
     }
 
     #content {
         width: 100%;
-    }
 
-    .nav {
-        margin: auto;
-        text-align: center;   
+        > h1 {
+            text-align: center;
+        }
     }
 }
 
@@ -65,12 +67,15 @@ body {
     border: 1px solid $border;
 }
 
-ul * {
-    list-style-type: none;
-
-    color: $links;
-
+ul > li {
     a {
         text-decoration: none;
+        color: $links;
+    }
+
+    &::marker {
+        font-family: $font;
+        content: attr(data-icon) $iconSpacing;
+        color: $links;
     }
 }
