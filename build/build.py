@@ -39,8 +39,10 @@ def print_gray(text, *args, **kwargs):
 def print_success(text, *args, **kwargs):
     print(f"\033[32m{text}\033[0m", *args, **kwargs)
 
+
 def print_error(text, *args, **kwargs):
     print(f"\033[31m{text}\033[0m", *args, **kwargs)
+
 
 def print_error_bold(text, *args, **kwargs):
     print(f"\033[31m\033[1m{text}\033[0m", *args, **kwargs)
@@ -96,7 +98,8 @@ if not theme_dir.is_dir():
 
     if not theme_dir.is_dir():
         print_error_bold(f"Theme \"{theme_name}\" doesn't exist!")
-        print_error(f"Make sure there are no typos in the config file or the theme directory name and that the theme exists at {theme_dir}.")
+        print_error(f"Make sure there are no typos in the config file or the theme directory name and that the theme "
+                    f"exists at {theme_dir}.")
         sys.exit(4)
 
 theme_file_path = theme_dir / f"theme.scss"
@@ -122,7 +125,9 @@ if not font_dir.is_dir():
 
     if not font_dir.is_dir():
         print_error_bold(f"Font \"{font_name}\" doesn't exist!")
-        print_error(f"Make sure there are no typos in the config file or the font directory name and that the font exists at {font_dir}.")
+        print_error(
+            f"Make sure there are no typos in the config file or the font directory name and that the font exists at "
+            f"{font_dir}.")
         sys.exit(5)
 
 font_file_path = font_dir / f"font.scss"
@@ -220,7 +225,6 @@ for section_name, links in config["sections"].items():
 
     if seperator_counter % 2 == 1:
         sections_html += '<div class="sep"></div>\n'
-
 
 print("Done!")
 
