@@ -27,8 +27,23 @@ except ImportError:
 
 
 def config_error(msg):
-    print(f"{msg}\nRefer to the documentation for instructions on how to correctly create a config file.")
+    printeb(msg)
+    printe("Refer to the documentation for instructions on how to correctly create a config file.")
     sys.exit(3)
+
+
+def printg(text, *args, **kwargs):
+    print(f"\033[90m{text}\033[0m", *args, **kwargs)
+
+
+def prints(text, *args, **kwargs):
+    print(f"\033[32m{text}\033[0m", *args, **kwargs)
+
+def printe(text, *args, **kwargs):
+    print(f"\033[31m{text}\033[0m", *args, **kwargs)
+
+def printeb(text, *args, **kwargs):
+    print(f"\033[31m\033[1m{text}\033[0m", *args, **kwargs)
 
 
 def image_to_data_url(path):
@@ -50,15 +65,15 @@ dist_dir = root_dir / "dist"
 # Check source/config files
 
 if not index_path.is_file():
-    print(f"Could not find source file {index_path} which is required for building.")
+    printe(f"Could not find source file {index_path} which is required for building.")
     sys.exit(2)
 
 if not style_path.is_file():
-    print(f"Could not find source file {style_path} which is required for building.")
+    printe(f"Could not find source file {style_path} which is required for building.")
     sys.exit(2)
 
 if not config_path.is_file():
-    print(f"Could not find a config file at {config_path} which is required for building.")
+    printe(f"Could not find a config file at {config_path} which is required for building.")
     sys.exit(3)
 
 # region Read config
@@ -74,18 +89,25 @@ if "theme" not in config["look"]:
 
 theme_name = config["look"]["theme"]
 theme_dir = root_dir / "themes" / theme_name
+theme_name = theme_dir.name
 
 if not theme_dir.is_dir():
-    print(f"Theme \"{theme_name}\" doesn't exist!\nMake sure there are no typos in the config file or the theme directory name and that the theme exists at {theme_dir}.")
-    sys.exit(4)
+    theme_dir = Path(theme_name)
+
+    if not theme_dir.is_dir():
+        printeb(f"Theme \"{theme_name}\" doesn't exist!")
+        printe(f"Make sure there are no typos in the config file or the theme directory name and that the theme exists at {theme_dir}.")
+        sys.exit(4)
 
 theme_file_path = theme_dir / f"theme.scss"
 
 if not theme_file_path.is_file():
-    print(f"The directory for the \"{theme_name}\" theme exists, but there is no theme.scss file inside it!\nMake sure there is no typo in the name of the file.")
+    printeb(f"The directory for the \"{theme_name}\" theme exists, but there is no theme.scss file inside it!")
+    printe("Make sure there is no typo in the name of the file.")
     sys.exit(4)
 
-print(f"Using theme:\n\t{theme_name} ({theme_file_path})")
+print(f"🎨 {theme_name} ", end="")
+printg(f"({theme_file_path})")
 
 # Get font files
 if "theme" not in config["look"]:
@@ -93,18 +115,25 @@ if "theme" not in config["look"]:
 
 font_name = config["look"]["font"]
 font_dir = root_dir / "fonts" / font_name
+font_name = font_dir.name
 
 if not font_dir.is_dir():
-    print(f"Font \"{font_name}\" doesn't exist!\nMake sure there are no typos in the config file or the font directory name and that the font exists at {font_dir}.")
-    sys.exit(5)
+    font_dir = Path(font_name)
+
+    if not font_dir.is_dir():
+        printeb(f"Font \"{font_name}\" doesn't exist!")
+        printe(f"Make sure there are no typos in the config file or the font directory name and that the font exists at {font_dir}.")
+        sys.exit(5)
 
 font_file_path = font_dir / f"font.scss"
 
 if not font_file_path.is_file():
-    print(f"The directory for the \"{font_name}\" font exists, but there is no font.scss file inside it!\nMake sure there is no typo in the name of the file.")
+    printeb(f"The directory for the \"{font_name}\" font exists, but there is no font.scss file inside it!")
+    printe("Make sure there is no typo in the name of the file.")
     sys.exit(5)
 
-print(f"Using font:\n\t{font_name} ({font_file_path})")
+print(f"📝 {font_name} ", end="")
+printg(f"({font_file_path})")
 
 # Get the image file
 if "image" not in config["look"]:
@@ -113,10 +142,11 @@ if "image" not in config["look"]:
 image_file_path = Path(config["look"]["image"])
 
 if not image_file_path.is_file():
-    print(f"The image specified (\"{image_file_path}\") doesn't exist!\nMake sure there is no typo in the config file or the target image file name.")
+    printeb(f"The image specified (\"{image_file_path}\") doesn't exist!")
+    printe("Make sure there is no typo in the config file or the target image file name.")
     sys.exit(6)
 
-print(f"Using image:\n\t{image_file_path}")
+print(f"📷 {image_file_path}")
 
 # Get the welcome message
 if "message" not in config["look"]:
@@ -124,7 +154,7 @@ if "message" not in config["look"]:
 
 welcome_message = config["look"]["message"]
 
-print(f"Welcome message:\n\t\"{welcome_message}\"")
+print(f"👋 \"{welcome_message}\"")
 
 # Get the page language and title
 if "page" not in config:
@@ -163,7 +193,7 @@ with open(style_path, "r") as f:
 try:
     compiled_css = sass.compile(string=style_content, output_style="compressed")
 except sass.CompileError as e:
-    print("\nFailed to compile your theme/font:")
+    printe("\nFailed to compile your theme/font:")
     print(e)
     sys.exit(7)
 
@@ -174,7 +204,7 @@ if "sections" not in config:
 if not isinstance(config["sections"], dict):
     config_error("Key \"sections\" exists, but is not the right type (should be a dictionary).")
 
-print("\nGenerating sections...")
+print("\nGenerating sections... ", end="")
 sections_html = ""
 seperator_counter = 0
 
@@ -192,11 +222,11 @@ for section_name, links in config["sections"].items():
         sections_html += '<div class="sep"></div>\n'
 
 
-print("\tSections generated.")
+print("Done!")
 
-print("\nConverting image...")
+print("Converting image... ", end="")
 image_data_url = image_to_data_url(image_file_path)
-print("\tImage converted.")
+print("Done!")
 
 replacement_map = {
     "LANG": page_language,
@@ -222,4 +252,4 @@ html_output_file_path = dist_dir / "index.html"
 with open(html_output_file_path, "w") as f:
     f.write(index_content)
 
-print(f"\nDone!\n\tCompiled to: {html_output_file_path}")
+prints(f"\n✅ Compiled to: {html_output_file_path}")

@@ -32,11 +32,11 @@ Everything happens inside the `build` directory, so it's a good idea to navigate
 The configuration file takes the form of a YAML document with the following structure:
 - `look` - Information about how the page looks
   - `theme` - Name of a built-in theme
-    - Can also be an **absolute** path to a locally available theme directory with a `theme.scss` file.
+    - Can also be an **absolute** or **relative** path to a locally available theme directory with a `theme.scss` file.
   - `font` - Name of a built-in font
-    - Can also be an **absolute** path to a locally available font directory with a `font.scss` file.
+    - Can also be an **absolute** or **relative** path to a locally available font directory with a `font.scss` file.
   - `image` - Path to an image to be displayed as the side "banner" picture
-    - Can be either an **absolute** or **relative** path. The latter is resolved relative to the directory from which the build script is ran.
+    - Can be either an **absolute** or **relative** path to a valid image file.
   - `message` - The welcome message displayed above the links
     - The text is directly injected into the HTML document, so any valid HTML is allowed and won't be sanitized.
 - `sections` - Defines the lists of links visible on the page
@@ -46,6 +46,8 @@ The configuration file takes the form of a YAML document with the following stru
   - `title` - The title of the document (`<title>{title}</title>`) which will be displayed as the name of a new tab
 - `search` - Search bar settings
   - `placeholder` - The placeholder text visible in the search box when it's empty
+
+**All relative paths are resolved relative to the directory from which the build script is ran.**
 
 <details>
 <summary><b>Example configuration</b></summary>
@@ -81,7 +83,11 @@ In order to turn your config into a working web page, you only need to run the `
 cd build
 python build.py
 ```
-It's recommended to start the build script when *inside* the `build` directory, to avoid issues with relative paths.
+
+> [!TIP]
+> It's recommended to start the build script when *inside* the `build` directory, to avoid issues with relative paths.
+
+Your `index.html` file should now be located at `dist/index.html`.
 
 ## Looking for more tips?
 Visit the wiki to learn more about how to customize your start page beyond the built-in stuff, configure the start page in various browsers and how you can contribute to the project!
