@@ -1,0 +1,18 @@
+look:
+  theme: catpuccin-macchiato
+  font: UbuntuMono
+  image: lucy_cyberpunk.png
+  message: Hello, <name>!
+sections:
+  "uni":
+    "github": {icon: "", link: "https://github.com"}
+    "leetcode": {icon: "󰰍", link: "https://leetcode.com"}
+    "itslearning": {icon: "󰑴", link: "https://sdu.itslearning.com"}
+    "mail": {icon: "", link: "https://outlook.office.com"}
+  "entertainment":
+    "youtube": {icon: "", link: "https://youtube.com"}
+    "reddit": {icon: "󰑍", link: "https://reddit.com"}
+    "netflix": {icon: "󰝆", link: "https://netflix.com"}
+page:
+  lang: en
+  title: startpage

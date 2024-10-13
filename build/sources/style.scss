@@ -1,0 +1,132 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 8px;
+    height: calc(100% - 16px);
+
+    font-family: $font, monospace;
+
+    background-color: $bgPrimary;
+    color: $fgColor;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: if($centerVertically, center, flex-start);
+
+    overflow: hidden;
+
+    main {
+        $standardGap: 25px;
+        $sectionWidth: 250px;
+
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+
+        background-color: $bgSecondary;
+
+        border: 1px solid $borderColor;
+        border-radius: $borderRadius $borderRadius 0 0;
+
+        > .sep {
+            margin: $standardGap 0;
+        }
+
+        > #side-banner {
+            flex: 0 0 400px;
+            max-width: 400px;
+            align-self: center;
+        }
+
+        > #content {
+            flex: 1 1 auto;
+            margin: 0 $standardGap;
+            padding-bottom: $standardGap;
+
+            > h1 {
+                text-align: center;
+            }
+
+            #links  {
+                display: grid;
+                grid-template-columns: $sectionWidth auto $sectionWidth;
+                gap: $standardGap;
+                font-size: 20px;
+
+                h3 {
+                    text-align: center;
+                }
+
+                > .sep {
+                    width: 0;
+                }
+
+                section {
+                    width: $sectionWidth;
+
+                    > ul > li {
+                        > a {
+                            text-decoration: none;
+                            color: $linksColor;
+                        }
+
+                        &::marker {
+                            font-family: $font;
+                            content: attr(data-icon) $iconSpacing;
+                            color: $linksColor;
+                        }
+
+                        &:hover {
+                            > a {
+                                color: $linksColorHover;
+                            }
+
+                            &::marker {
+                                color: $linksColorHover;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    nav {
+        width: calc(100% - 20px);
+        padding: 10px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        background: $bgSecondary;
+
+        border: 1px solid $borderColor;
+        border-top: none;
+        border-radius: 0 0 $borderRadius $borderRadius;
+
+        form {
+            padding-left: 10px;
+            flex: 1 0 auto;
+
+            input {
+                background: transparent;
+                border: none;
+                color: $fgColor;
+                font-size: 1.5em;
+                outline: none;
+                font-family: $font;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.sep {
+    border: 1px solid $borderColor;
+}

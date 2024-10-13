@@ -1,20 +1,9 @@
-$background: #24273a;
-$secondary: #181926;
-$text: #cad3f5;
-$border: #b7bdf8;
-$links: #8aadf4;
-$font: "UbuntuMono";
-$sideBannerPicture: "lucy_cyberpunk.png";
+$bgPrimary: #24273a;
+$bgSecondary: #181926;
+$fgColor: #cad3f5;
+$borderColor: #b7bdf8;
+$linksColor: #8aadf4;
+$linksColorHover: #8aadf4;
+
 $centerVertically: false;
-$iconSpacing: '  ';
-
-#side-banner {
-    height: 560px;
-}
-
-@font-face {
-    font-family: 'UbuntuMono';
-    src: url('/fonts/UbuntuMonoNerdFont-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+$borderRadius: 0;

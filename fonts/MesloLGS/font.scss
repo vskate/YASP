@@ -1,0 +1,11 @@
+/* meslolgs-nf */
+@font-face {
+	font-family: MesloLGS NF;
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: 100%;
+	src: local("MesloLGS NF Regular"), local("MesloLGS-NF-Regular"), url(fonts/MesloLGS/meslolgs-nf.woff2) format("woff2");
+}
+
+$font: "MesloLGS NF";
+$iconSpacing: ' ';
