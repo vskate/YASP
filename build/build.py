@@ -27,22 +27,22 @@ except ImportError:
 
 
 def config_error(msg):
-    printeb(msg)
-    printe("Refer to the documentation for instructions on how to correctly create a config file.")
+    print_error_bold(msg)
+    print_error("Refer to the documentation for instructions on how to correctly create a config file.")
     sys.exit(3)
 
 
-def printg(text, *args, **kwargs):
+def print_gray(text, *args, **kwargs):
     print(f"\033[90m{text}\033[0m", *args, **kwargs)
 
 
-def prints(text, *args, **kwargs):
+def print_success(text, *args, **kwargs):
     print(f"\033[32m{text}\033[0m", *args, **kwargs)
 
-def printe(text, *args, **kwargs):
+def print_error(text, *args, **kwargs):
     print(f"\033[31m{text}\033[0m", *args, **kwargs)
 
-def printeb(text, *args, **kwargs):
+def print_error_bold(text, *args, **kwargs):
     print(f"\033[31m\033[1m{text}\033[0m", *args, **kwargs)
 
 
@@ -65,15 +65,15 @@ dist_dir = root_dir / "dist"
 # Check source/config files
 
 if not index_path.is_file():
-    printe(f"Could not find source file {index_path} which is required for building.")
+    print_error(f"Could not find source file {index_path} which is required for building.")
     sys.exit(2)
 
 if not style_path.is_file():
-    printe(f"Could not find source file {style_path} which is required for building.")
+    print_error(f"Could not find source file {style_path} which is required for building.")
     sys.exit(2)
 
 if not config_path.is_file():
-    printe(f"Could not find a config file at {config_path} which is required for building.")
+    print_error(f"Could not find a config file at {config_path} which is required for building.")
     sys.exit(3)
 
 # region Read config
@@ -95,19 +95,19 @@ if not theme_dir.is_dir():
     theme_dir = Path(theme_name)
 
     if not theme_dir.is_dir():
-        printeb(f"Theme \"{theme_name}\" doesn't exist!")
-        printe(f"Make sure there are no typos in the config file or the theme directory name and that the theme exists at {theme_dir}.")
+        print_error_bold(f"Theme \"{theme_name}\" doesn't exist!")
+        print_error(f"Make sure there are no typos in the config file or the theme directory name and that the theme exists at {theme_dir}.")
         sys.exit(4)
 
 theme_file_path = theme_dir / f"theme.scss"
 
 if not theme_file_path.is_file():
-    printeb(f"The directory for the \"{theme_name}\" theme exists, but there is no theme.scss file inside it!")
-    printe("Make sure there is no typo in the name of the file.")
+    print_error_bold(f"The directory for the \"{theme_name}\" theme exists, but there is no theme.scss file inside it!")
+    print_error("Make sure there is no typo in the name of the file.")
     sys.exit(4)
 
 print(f"🎨 {theme_name} ", end="")
-printg(f"({theme_file_path})")
+print_gray(f"({theme_file_path})")
 
 # Get font files
 if "theme" not in config["look"]:
@@ -121,19 +121,19 @@ if not font_dir.is_dir():
     font_dir = Path(font_name)
 
     if not font_dir.is_dir():
-        printeb(f"Font \"{font_name}\" doesn't exist!")
-        printe(f"Make sure there are no typos in the config file or the font directory name and that the font exists at {font_dir}.")
+        print_error_bold(f"Font \"{font_name}\" doesn't exist!")
+        print_error(f"Make sure there are no typos in the config file or the font directory name and that the font exists at {font_dir}.")
         sys.exit(5)
 
 font_file_path = font_dir / f"font.scss"
 
 if not font_file_path.is_file():
-    printeb(f"The directory for the \"{font_name}\" font exists, but there is no font.scss file inside it!")
-    printe("Make sure there is no typo in the name of the file.")
+    print_error_bold(f"The directory for the \"{font_name}\" font exists, but there is no font.scss file inside it!")
+    print_error("Make sure there is no typo in the name of the file.")
     sys.exit(5)
 
 print(f"📝 {font_name} ", end="")
-printg(f"({font_file_path})")
+print_gray(f"({font_file_path})")
 
 # Get the image file
 if "image" not in config["look"]:
@@ -142,8 +142,8 @@ if "image" not in config["look"]:
 image_file_path = Path(config["look"]["image"])
 
 if not image_file_path.is_file():
-    printeb(f"The image specified (\"{image_file_path}\") doesn't exist!")
-    printe("Make sure there is no typo in the config file or the target image file name.")
+    print_error_bold(f"The image specified (\"{image_file_path}\") doesn't exist!")
+    print_error("Make sure there is no typo in the config file or the target image file name.")
     sys.exit(6)
 
 print(f"📷 {image_file_path}")
@@ -193,7 +193,7 @@ with open(style_path, "r") as f:
 try:
     compiled_css = sass.compile(string=style_content, output_style="compressed")
 except sass.CompileError as e:
-    printe("\nFailed to compile your theme/font:")
+    print_error("\nFailed to compile your theme/font:")
     print(e)
     sys.exit(7)
 
@@ -252,4 +252,4 @@ html_output_file_path = dist_dir / "index.html"
 with open(html_output_file_path, "w") as f:
     f.write(index_content)
 
-prints(f"\n✅ Compiled to: {html_output_file_path}")
+print_success(f"\n✅ Compiled to: {html_output_file_path}")
