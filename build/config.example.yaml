@@ -1,18 +1,20 @@
 look:
-  theme: catpuccin-macchiato
+  theme: catppuccin-macchiato
   font: UbuntuMono
   image: lucy_cyberpunk.png
-  message: Hello, <name>!
+  message: Hello, {name}!
 sections:
   "uni":
-    "github": {icon: "", link: "https://github.com"}
-    "leetcode": {icon: "󰰍", link: "https://leetcode.com"}
-    "itslearning": {icon: "󰑴", link: "https://sdu.itslearning.com"}
-    "mail": {icon: "", link: "https://outlook.office.com"}
+    "github": {icon: "", url: "https://github.com"}
+    "leetcode": {icon: "󰰍", url: "https://leetcode.com"}
+    "itslearning": {icon: "󰑴", url: "https://sdu.itslearning.com"}
+    "mail": {icon: "", url: "https://outlook.office.com"}
   "entertainment":
-    "youtube": {icon: "", link: "https://youtube.com"}
-    "reddit": {icon: "󰑍", link: "https://reddit.com"}
-    "netflix": {icon: "󰝆", link: "https://netflix.com"}
+    "youtube": {icon: "", url: "https://youtube.com"}
+    "reddit": {icon: "󰑍", url: "https://reddit.com"}
+    "netflix": {icon: "󰝆", url: "https://netflix.com"}
 page:
   lang: en
   title: startpage
+search:
+  placeholder: Search using DuckDuckGo
