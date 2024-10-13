@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UbuntuMono';
+    src: local("UbuntuMono Nerd Font"), local("UbuntuMono-Nerd-Font"), url(fonts/UbuntuMono/UbuntuMonoNerdFont-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$font: "UbuntuMono";
+$iconSpacing: '  ';
