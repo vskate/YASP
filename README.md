@@ -39,6 +39,10 @@ The configuration file takes the form of a YAML document with the following stru
     - Can be either an **absolute** or **relative** path to a valid image file.
   - `message` - The welcome message displayed above the links
     - The text is directly injected into the HTML document, so any valid HTML is allowed and won't be sanitized.
+  - `center_vertically` - Whether you want the contents to be centered vertically or not.
+    - can be either **true** or **false**.
+  - `border_radius` - Radius of the rounded corners of the border.
+    - Can be **0** for none, or another number in pixels, of how big the radius is.
 - `sections` - Defines the lists of links visible on the page
   - See the wiki for details on how the `sections` object is interpreted, although it's easy to understand from the example config provided below.
 - `page` - Various metadata for the HTML document
