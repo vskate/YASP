@@ -10,8 +10,21 @@ except ImportError:
           "Install it using one of these methods:\n\n"
           "Debian-based Linux system:\n"
           "sudo apt install python3-yaml\n\n"
+          "Arch-based Linux system:\n"
+          "yay -S python-yaml\n\n"
           "Windows/Other:\n"
           "pip install pyyaml")
+    sys.exit(1)
+
+try:
+    import jinja2 as j2
+except ImportError:
+    print("Jinja2 is not installed.\n"
+          "Install it using one of these methods:\n\n"
+          "Debian-based Linux system:\n"
+          "sudo apt install python3-jinja2\n\n"
+          "Windows/Other:\n"
+          "pip install jinja2")
     sys.exit(1)
 
 try:
@@ -60,18 +73,22 @@ def image_to_data_url(path):
 
 
 build_dir_path = Path(__file__).parent
-index_path = build_dir_path / "sources" / "index.html"
-style_path = build_dir_path / "sources" / "style.scss"
+sources_path = build_dir_path / "sources"
+style_path = sources_path / "style.scss"
 config_path = build_dir_path / "config.yaml"
 root_dir = build_dir_path.parent
 dist_dir = root_dir / "dist"
 
-# Check source/config files
+# Setup Jinja2 environment
+j2_env = j2.Environment(loader=j2.FileSystemLoader(sources_path), autoescape=j2.select_autoescape())
 
-if not index_path.is_file():
-    print_error(f"Could not find source file {index_path} which is required for building.")
+try:
+    index_template = j2_env.get_template("index.j2")
+except j2.TemplateNotFound:
+    print_error(f"Could not find source file {sources_path / 'index.j2'} which is required for building.")
     sys.exit(2)
 
+# Check source/config files
 if not style_path.is_file():
     print_error(f"Could not find source file {style_path} which is required for building.")
     sys.exit(2)
@@ -218,44 +235,24 @@ if "sections" not in config:
 if not isinstance(config["sections"], dict):
     config_error("Key \"sections\" exists, but is not the right type (should be a dictionary).")
 
-print("\nGenerating sections... ", end="")
-sections_html = ""
-seperator_counter = 0
-
-for section_name, links in config["sections"].items():
-    sections_html += f'<section>\n\t<h3>{section_name}</h3>\n\t<div class="sep"></div>\n\t<ul>\n'
-
-    for link_name, link_data in links.items():
-        sections_html += f'\t\t<li data-icon="{link_data["icon"]}"><a href="{link_data["url"]}">{link_name}</a></li>\n'
-
-    sections_html += f'\t</ul>\n</section>\n'
-
-    seperator_counter += 1
-
-    if seperator_counter % 2 == 1:
-        sections_html += '<div class="sep"></div>\n'
-
-print("Done!")
-
 print("Converting image... ", end="")
 image_data_url = image_to_data_url(image_file_path)
 print("Done!")
 
-replacement_map = {
-    "LANG": page_language,
-    "STYLES": compiled_css,
-    "TITLE": page_title,
-    "IMAGE": image_data_url,
-    "MESSAGE": welcome_message,
-    "SECTIONS": sections_html,
-    "SEARCH_PLACEHOLDER": search_placeholder
-}
-
-with open(index_path, "r") as f:
-    index_content = f.read()
-
-for key, value in replacement_map.items():
-    index_content = index_content.replace(f"BUILDER:{key}", value)
+print("\nCreating page from template... ", end="")
+index_content = index_template.render(
+    look={
+        "message": config["look"]["message"],
+        "image": image_data_url
+    },
+    sections=config["sections"],
+    page=config["page"],
+    search=config["search"],
+    builder={
+        "styles": compiled_css
+    }
+)
+print("Done!")
 
 if not dist_dir.is_dir():
     dist_dir.mkdir()
