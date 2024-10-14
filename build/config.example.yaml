@@ -3,6 +3,8 @@ look:
   font: UbuntuMono
   image: lucy_cyberpunk.png
   message: Hello, {name}!
+  center_vertically: true
+  border_radius: 0
 sections:
   "uni":
     "github": {icon: "", url: "https://github.com"}

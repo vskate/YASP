@@ -21,6 +21,8 @@ except ImportError:
           "Install it using one of these methods:\n\n"
           "Debian-based Linux system:\n"
           "sudo apt install python3-libsass\n\n"
+          "Arch-based Linux system:\n"
+          "yay -S python-libsass\n\n"
           "Windows/Other:\n"
           "pip install libsass")
     sys.exit(1)
@@ -186,8 +188,15 @@ search_placeholder = config["search"]["placeholder"]
 # endregion
 
 # Merge and compile SCSS
+
+center_vert = config["look"]["center_vertically"]
+border_radius = config["look"]["border_radius"]
+
+style_content = f"$centerVertically: {center_vert};" + "\n"
+style_content += f"$borderRadius: {border_radius};" + "\n"
+
 with open(theme_file_path, "r") as f:
-    style_content = f.read() + "\n"
+    style_content += f.read() + "\n"
 
 with open(font_file_path, "r") as f:
     style_content += f.read() + "\n"
