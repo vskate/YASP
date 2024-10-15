@@ -1,0 +1,2 @@
+class BuildState:
+    config: dict
