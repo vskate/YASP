@@ -1,0 +1,10 @@
+[
+  "S000_check_deps",
+  "S100_load_config",
+  "S200_load_theme",
+  "S300_apply_config_look",
+  "S400_load_font",
+  "S500_load_general_style",
+  "S600_convert_image",
+  "S998_compile_and_render"
+]
