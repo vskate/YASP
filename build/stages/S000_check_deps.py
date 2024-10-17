@@ -41,7 +41,7 @@ class Stage(BuildStage):
         "pip": "Windows/Other"
     }
 
-    def task(self) -> bool:
+    def task(self):
         failures = [
             dependency
             for dependency in self.dependencies.keys()
@@ -49,7 +49,7 @@ class Stage(BuildStage):
         ]
 
         if len(failures) == 0:
-            return True
+            return
 
         log("Failed to resolve one or more dependencies:", color="red", bold=True)
 
@@ -63,3 +63,5 @@ class Stage(BuildStage):
 
                 log(f"\t{self.instructions_platforms[platform]}: ", bold=True, end="")
                 log(command)
+
+        raise InterruptBuild

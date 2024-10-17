@@ -11,10 +11,10 @@ terminal_modifiers = {
     "bold": "\033[1m",
 }
 
-BuildLogTextColor = Literal["default", "gray", "green", "red"]
+LogTextColor = Literal["default", "gray", "green", "red"]
 
 
-def log(message, color: BuildLogTextColor = "default", bold: bool = False, *args, **kwargs):
+def log(message, color: LogTextColor = "default", bold: bool = False, *args, **kwargs):
     if color not in terminal_colors:
         raise ValueError(f"Color \"{color}\" must be one of: {', '.join(terminal_colors.keys())}")
 
