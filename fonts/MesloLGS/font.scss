@@ -4,7 +4,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-stretch: 100%;
-	src: local("MesloLGS NF Regular"), local("MesloLGS-NF-Regular"), url(fonts/MesloLGS/meslolgs-nf.woff2) format("woff2");
+	src: url(fonts/MesloLGS/meslolgs-nf.woff2) format("woff2"), local("MesloLGS NF Regular"), local("MesloLGS-NF-Regular");
 }
 
 $font: "MesloLGS NF";
