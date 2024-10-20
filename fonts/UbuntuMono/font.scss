@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'UbuntuMono';
-    src: local("UbuntuMono Nerd Font"), local("UbuntuMono-Nerd-Font"), url(fonts/UbuntuMono/UbuntuMonoNerdFont-Regular.ttf) format('truetype');
+    src: url(fonts/UbuntuMono/UbuntuMonoNerdFont-Regular.ttf) format('truetype'), local("UbuntuMono Nerd Font"), local("UbuntuMono-Nerd-Font");
     font-weight: normal;
     font-style: normal;
 }
