@@ -20,6 +20,7 @@ class Stage(BuildStage):
             log(f"Could not find a config file at:", color="red", bold=True)
             log(config_path.resolve())
             log("The build script cannot continue without it.", color="red")
+            log("To specify a custom config file location, use the -c flag.", color="gray")
             raise InterruptBuild
 
         with open(config_path, "r") as f:
