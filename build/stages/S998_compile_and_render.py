@@ -1,11 +1,11 @@
 from .base import *
 
-import jinja2 as j2
-import sass
-
 
 class Stage(BuildStage):
     def task(self):
+        import jinja2 as j2
+        import sass
+
         sources_path = self.build_dir_path / "sources"
         html_output_path = self.build_dir_path.parent / "dist" / "index.html"
 

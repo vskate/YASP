@@ -1,7 +1,5 @@
 from .base import *
 
-import yaml
-
 
 class Stage(BuildStage):
     @staticmethod
@@ -14,6 +12,8 @@ class Stage(BuildStage):
         )
 
     def task(self):
+        import yaml
+
         config_path = Path(self.arguments.config)
 
         if not config_path.is_file():
