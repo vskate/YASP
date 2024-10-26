@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 import importlib.util
 import json
+import argparse
 
 from stages.base import BuildState, InterruptBuild, KeyNotFoundInConfigError, log
 
@@ -18,10 +19,21 @@ def import_stage(name):
 
 
 state = BuildState()
+stage_modules = []
+
+args_parser = argparse.ArgumentParser()
 
 for stage_name in stages_to_run:
     stage_module = import_stage(stage_name)
-    stage_instance = stage_module.Stage(state, root_dir_path, build_dir_path)
+    stage_module.Stage.setup_args(args_parser)
+    stage_modules.append(stage_module)
+
+
+arguments = args_parser.parse_args()
+
+
+for stage_module in stage_modules:
+    stage_instance = stage_module.Stage(state, root_dir_path, build_dir_path, arguments)
 
     try:
         stage_instance.task()

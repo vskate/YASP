@@ -1,4 +1,5 @@
 from pathlib import Path
+from argparse import ArgumentParser, Namespace
 
 from .state import BuildState
 
@@ -13,10 +14,15 @@ class KeyNotFoundInConfigError(Exception):
 
 
 class BuildStage:
-    def __init__(self, state: BuildState, root_dir_path: Path, build_dir_path: Path):
+    def __init__(self, state: BuildState, root_dir_path: Path, build_dir_path: Path, arguments: Namespace):
         self._state = state
         self._root_dir_path = root_dir_path
         self._build_dir_path = build_dir_path
+        self.arguments = arguments
+
+    @staticmethod
+    def setup_args(parser: ArgumentParser):
+        pass
 
     @property
     def state(self) -> BuildState:
