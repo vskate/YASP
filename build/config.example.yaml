@@ -15,8 +15,12 @@ sections:
     "youtube": {icon: "", url: "https://youtube.com"}
     "reddit": {icon: "󰑍", url: "https://reddit.com"}
     "netflix": {icon: "󰝆", url: "https://netflix.com"}
+  "social":
+    "facebook": {icon: "", url: "https://facebook.com" } 
 page:
   lang: en
   title: startpage
 search:
+  engine: "https://duckduckgo.com" # add "/search?" for google and startpage
+  icon: "duckduckgo.png"
   placeholder: Search using DuckDuckGo

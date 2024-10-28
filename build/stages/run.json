@@ -6,5 +6,6 @@
   "S400_load_font",
   "S500_load_general_style",
   "S600_convert_image",
+  "S650_convert_icon",
   "S998_compile_and_render"
 ]
