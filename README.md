@@ -49,6 +49,8 @@ The configuration file takes the form of a YAML document with the following stru
   - `lang` - The language defined in the HTML tag (`<html lang="{lang}">`). Set to the same language as your browser to avoid auto-translation prompts
   - `title` - The title of the document (`<title>{title}</title>`) which will be displayed as the name of a new tab
 - `search` - Search bar settings
+  - `engine` - the search engine you want to use (tip: for google and startpage you should add "/search?" eg. `"https://google.com/search?"`)
+  - `icon` - the icon to use for the search bar
   - `placeholder` - The placeholder text visible in the search box when it's empty
 
 **All relative paths are resolved relative to the directory from which the build script is ran.**
@@ -76,6 +78,8 @@ page:
   lang: en
   title: startpage
 search:
+  engine: "https://duckduckgo.com" #add "/search?" for google and startpage
+  icon: "duckduckgo.png"
   placeholder: Search using DuckDuckGo
 ```
 
