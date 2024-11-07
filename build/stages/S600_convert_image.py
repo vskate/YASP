@@ -1,5 +1,6 @@
 import mimetypes
 import base64
+import shutil
 
 from .base import *
 
@@ -17,6 +18,10 @@ def image_to_data_url(path) -> str | None:
 
 
 class Stage(BuildStage):
+    @staticmethod
+    def setup_args(parser: ArgumentParser):
+        parser.add_argument("--no-embed-image", action="store_true")
+
     def task(self):
         if "image" not in self.state.config["look"]:
             raise KeyNotFoundInConfigError("look/image")
@@ -29,6 +34,15 @@ class Stage(BuildStage):
             log(image_path)
             log("Make sure that the file exists and that there is no typo in the config file.", color="red")
             raise InterruptBuild
+
+        if self.arguments.no_embed_image:
+            log("Copying image... ", end="")
+            shutil.copy(image_path, self.build_dir_path.parent / "dist")
+            log("Done!", color="green")
+
+            self.state.config["look"]["image"] = image_path.name
+
+            return
 
         log("Converting image... ", end="")
         encoded = image_to_data_url(image_path)
